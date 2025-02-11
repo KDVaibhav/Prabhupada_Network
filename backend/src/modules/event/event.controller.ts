@@ -9,14 +9,12 @@ export class EventController {
   
   @Post('create')
   create(@Body() createEventDto: CreateEventDto) {
-    console.log('hi');
     return this.eventService.create(createEventDto);
   }
 
   @SkipAuth()
   @Get()
   findAll() {
-    console.log('hi');
     return this.eventService.findAll();
   }
   
