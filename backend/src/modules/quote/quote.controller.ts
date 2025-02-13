@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { QuoteService } from './quote.service';
 import { CreateQuoteDto, UpdateQuoteDto } from './quote.schema';
 import { SkipAuth } from '../auth/skip-auth.decorator';
@@ -7,8 +15,9 @@ import { SkipAuth } from '../auth/skip-auth.decorator';
 export class QuoteController {
   constructor(private readonly quoteService: QuoteService) {}
 
-  @Post('create')
+  @Post()
   create(@Body() createQuoteDto: CreateQuoteDto) {
+    console.log(createQuoteDto);
     return this.quoteService.create(createQuoteDto);
   }
   @SkipAuth()

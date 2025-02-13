@@ -10,18 +10,7 @@ export default function PromotionSection() {
           src="https://ik.imagekit.io/opiwak7mf/Prabhupada_Network/Website%20Home%20Banner.png?updatedAt=1739163337702"
           alt="..."
         />
-        <img
-          src="https://flowbite.com/docs/images/carousel/carousel-2.svg"
-          alt="..."
-        />
-        <img
-          src="https://flowbite.com/docs/images/carousel/carousel-3.svg"
-          alt="..."
-        />
-        <img
-          src="https://flowbite.com/docs/images/carousel/carousel-4.svg"
-          alt="..."
-        />
+       
         <img
           src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
           alt="..."

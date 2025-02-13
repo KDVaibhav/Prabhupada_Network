@@ -11,6 +11,7 @@ export default function App() {
     <div className="flex flex-col mt-10 gap-componentSpacing">
       <PromotionSection />
       <QuotesSection />
+      {/* <FlipCalendar/> */}
       <EventSection />
       <BlogSection />
       <DonationForm />

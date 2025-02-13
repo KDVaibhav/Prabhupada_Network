@@ -6,11 +6,24 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser, setAuth, setWindowSize } from "@/features/authSlice";
+import { AppDispatch } from "@/lib/store";
+import LoginModal from "./LoginModal";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isAuthenticated, user, windowSize } = useSelector(
+    (state: {
+      auth: { isAuthenticated: boolean; user: any; windowSize: number };
+    }) => state.auth
+  );
+  const [openModal, setOpenModal] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
+  const onCloseModal = () => {
+    setOpenModal(false);
+  };
+
   let pathname = usePathname() || "/";
   if (pathname.includes("/blogs/")) pathname = "/blogs";
   if (pathname.includes("/courses/")) pathname = "/courses";
@@ -18,11 +31,12 @@ const Navbar = () => {
   const [hoveredPath, setHoveredPath] = useState(pathname);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 1000);
+    const handleResize = () => dispatch(setWindowSize(window.innerWidth));
+    dispatch(setAuth({isAuthenticated: localStorage.getItem("token") !== null}));
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [dispatch]);
 
   const toggleNavBar = () => {
     setIsOpen(!isOpen);
@@ -33,8 +47,8 @@ const Navbar = () => {
       {/* Main Nav */}
       <div className="relative flex flex-col bg-white backdrop-blur-md w-full shadow-md rounded-2xl">
         <div className="flex justify-between pr-2 items-center">
-          <Logo isMobile={isMobile} />
-          {isMobile ? (
+          <Logo />
+          {windowSize < 768 ? (
             <MobileMenuToggle isOpen={isOpen} toggleNavBar={toggleNavBar} />
           ) : (
             <NavOptions
@@ -44,36 +58,59 @@ const Navbar = () => {
             />
           )}
         </div>
-        {isMobile && <MobileMenuDropdown
-          isOpen={isOpen}
-          hoveredPath={hoveredPath}
-          setHoveredPath={setHoveredPath}
-          pathname={pathname}
-        />}
+        {windowSize < 768 && (
+          <MobileMenuDropdown
+            isOpen={isOpen}
+            hoveredPath={hoveredPath}
+            setHoveredPath={setHoveredPath}
+            pathname={pathname}
+          />
+        )}
       </div>
-      <LoginButton />
+      {isAuthenticated ? (
+        <button
+          onClick={() => dispatch(logoutUser())}
+          className="bg-primary2 w-24 h-14 flex items-center justify-center rounded-2xl shadow-md font-bold font-Roboto text-white mt-2 hover:text-fontApp2"
+        >
+          Logout
+        </button>
+      ) : (
+        <LoginButton
+          openModal={openModal}
+          onCloseModal={onCloseModal}
+          setOpenModal={setOpenModal}
+        />
+      )}
     </nav>
   );
 };
 
 export default Navbar;
 
-const Logo = ({isMobile}:{isMobile: boolean}) => (
-  <div className="flex gap-2 items-center">
-    <Image
-      src="/PN_Logo.jpg"
-      alt="Prabhupada Network Logo"
-      width={70}
-      height={70}
-      className="rounded-full"
-    />
-    {!isMobile &&
-    <div className="flex flex-col font-bold font-Roboto">
-      <span>Prabhupada</span>
-      <span>Network</span>
-    </div>}
-  </div>
-);
+const Logo = () => {
+  const { windowSize } = useSelector(
+    (state: {
+      auth: { isAuthenticated: boolean; user: any; windowSize: number };
+    }) => state.auth
+  );
+  return (
+    <div className="flex gap-2 items-center">
+      <Image
+        src="/PN_Logo.jpg"
+        alt="Prabhupada Network Logo"
+        width={70}
+        height={70}
+        className="rounded-full"
+      />
+      {windowSize >= 768 && (
+        <div className="flex flex-col font-bold font-Roboto">
+          <span>Prabhupada</span>
+          <span>Network</span>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const MobileMenuDropdown = ({
   isOpen,
@@ -146,11 +183,27 @@ const NavOptions = ({
   );
 };
 
-const LoginButton = () => (
-  <div className="bg-primary2 w-24 h-14 flex items-center justify-center rounded-2xl shadow-md font-bold font-Roboto text-white mt-2">
-    Login
-  </div>
-);
+const LoginButton = ({
+  openModal,
+  setOpenModal,
+  onCloseModal,
+}: {
+  openModal: boolean;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+  onCloseModal: () => void;
+}) => {
+  return (
+    <>
+      <button
+        onClick={() => setOpenModal(true)}
+        className="bg-primary2 w-24 h-14 flex items-center justify-center rounded-2xl shadow-md font-bold font-Roboto text-white mt-2 hover:text-fontApp2"
+      >
+        Login
+      </button>
+      <LoginModal openModal={openModal} onCloseModal={onCloseModal} />
+    </>
+  );
+};
 const MobileMenuToggle = ({
   isOpen,
   toggleNavBar,

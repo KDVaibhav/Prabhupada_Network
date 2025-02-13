@@ -11,6 +11,7 @@ export class QuoteService {
     try {
       const newQuote = new this.quoteModel(createQuoteDto);
       await newQuote.save();
+      console.log(newQuote)
       return { message: 'Quote added successfully' };
     } catch (error) {
       throw new BadRequestException('Error creating quote', error);

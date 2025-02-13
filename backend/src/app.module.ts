@@ -11,6 +11,7 @@ import { CourseModule } from './modules/course/course.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { QuoteModule } from './modules/quote/quote.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { JwtModule } from '@nestjs/jwt';
     CourseModule,
     AuthModule,
     JwtModule,
+    QuoteModule
   ],
   controllers: [AppController],
   providers: [AppService],

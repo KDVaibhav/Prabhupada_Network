@@ -125,3 +125,9 @@ export const quotes = [
     event_location: "Paris, 1976",
   },
 ];
+
+export const QuoteFields = [
+  {name: "quote", type: "string"},
+  {name: "location", type: "string"},
+  {name: "date", type: "date"},
+]

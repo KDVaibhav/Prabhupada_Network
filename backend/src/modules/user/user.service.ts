@@ -10,6 +10,7 @@ import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { MailerService } from '@nestjs-modules/mailer';
+import ImageKit from "imagekit";
 
 @Injectable()
 export class UserService {
@@ -17,6 +18,7 @@ export class UserService {
     @InjectModel('User') private userModel: Model<User>,
     private jwtService: JwtService,
     private readonly mailService: MailerService,
+    @Inject("IMAGEKIT_INSTANCE") private readonly imagekit: ImageKit
   ) {}
   //user can be created by superadmin only
   async create(createUserDto: CreateUserDto) {
@@ -136,6 +138,15 @@ export class UserService {
       const user = await this.userModel.findByIdAndUpdate(id, updateUserDto);
       return { msg: 'User updated successfully' };
     } catch (error) {
+      throw new BadRequestException(error);
+    }
+  }
+
+  async uploadSignedUrl(){
+    try{
+      const signature = this.imagekit.getAuthenticationParameters();
+      return signature;
+    }catch(error){
       throw new BadRequestException(error);
     }
   }

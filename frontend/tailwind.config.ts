@@ -17,8 +17,9 @@ export default {
   			secondary1: '#59B2B2',
   			secondary2: '#FFA082',
   			fontApp: '#034242',
-  			fontApp2: '8C2808',
+  			fontApp2: '#8C2808',
   			bgApp: '#F2FFFF',
+			bgApp2: '#FFECE5',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
