@@ -1,0 +1,37 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH Key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/ec2_key.pem
+          chmod 600 ~/.ssh/ec2_key.pem
+          ssh-keyscan -H 3.107.86.145 >> ~/.ssh/known_hosts
+
+      - name: Connect to EC2 and Deploy
+        run: |
+          ssh -i ~/.ssh/ec2_key.pem ubuntu@3.107.86.145 << 'EOF'
+            echo "Pulling the latest Docker image..."
+            docker pull ${{secrets.DOCKER_USERNAME}}/backend:latest
+
+            echo "Stopping and removing old container..."
+            docker stop backend || true
+            docker rm backend
+
+            echo "Running new container..."
+            docker run -d --name backend -p 5000:5000 --env-file .env ${{ secrets.DOCKER_USERNAME }}/backend:latest
+
+            echo "Deployment Completed!"
+          EOF
+
