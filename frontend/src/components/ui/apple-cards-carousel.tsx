@@ -27,6 +27,7 @@ type Card = {
   imageUrl: string;
   title: string;
   location?: string;
+  author?: string;
   date: string;
   description: string;
   content?: string;
@@ -103,7 +104,7 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
           <div
             className={cn(
-              "flex flex-row gap-4 md:gap-24 pl-4",
+              "flex flex-row gap-4 md:gap-6 pl-4",
               "max-w-7xl mx-auto" // remove max-w-4xl if you want the carousel to span the full width of its container
             )}
           >
@@ -237,7 +238,26 @@ export const Card = ({
               >
                 <div>
                   <div
-                    dangerouslySetInnerHTML={{ __html: cleanContent || "" }}
+                    style={{
+                      lineHeight: "1.6",
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: cleanContent
+                        ? cleanContent
+                            .replace(
+                              /<ul>/g,
+                              '<ul style="list-style-type: disc; padding-left: 1.5rem; margin: 1rem 0;">'
+                            )
+                            .replace(
+                              /<ol>/g,
+                              '<ol style="list-style-type: decimal; padding-left: 1.5rem; margin: 1rem 0;">'
+                            )
+                            .replace(
+                              /<li>/g,
+                              '<li style="margin: 0.25em 0; display: list-item;">'
+                            )
+                        : "",
+                    }}
                   />
                 </div>
               </motion.div>
@@ -260,15 +280,24 @@ export const Card = ({
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-56 overflow-hidden flex flex-col items-start justify-start relative z-10"
+        className="rounded-3xl bg-gray-100 dark:bg-neutral-900 h-80 w-64 overflow-hidden flex flex-col items-start justify-start relative z-10"
       >
-        <div className="absolute h-full top-0 inset-x-0 bg-gradient-to-b from-black/50 via-transparent to-transparent z-30 pointer-events-none" />
-        <div className="relative z-40 p-8"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-30 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 z-40 p-3 md:p-4">
+          <h3 className="text-white text-base md:text-lg font-semibold truncate drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">
+            {card.title}
+          </h3>
+          {card.description && (
+            <p className="mt-1 text-white/90 text-xs md:text-sm truncate drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]">
+              {card.description}
+            </p>
+          )}
+        </div>
         <BlurImage
           src={card.imageUrl}
           alt={card.title}
           fill
-          className=" absolute z-10 inset-0"
+          className=" absolute z-10 inset-0 object-cover"
         />
       </motion.button>
     </>

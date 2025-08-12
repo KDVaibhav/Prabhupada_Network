@@ -14,7 +14,7 @@ export interface Blog extends mongoose.Document {
   title: string;
   content: string;
   author: string;
-  imageUrl: string;
+  imageUrl?: string;
   date: Date;
   tags: string[];
 }

@@ -14,6 +14,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { QuoteModule } from './modules/quote/quote.module';
 import { QueryModule } from './modules/query/query.module';
 import { SubscriberModule } from './modules/subscriber/subscriber.module';
+import { JoinUsModule } from './modules/join-us/join-us.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { SubscriberModule } from './modules/subscriber/subscriber.module';
     QuoteModule,
     QueryModule,
     SubscriberModule,
+    JoinUsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

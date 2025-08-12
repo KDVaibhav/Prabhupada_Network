@@ -12,7 +12,6 @@ export const BlogSection = () => {
   const [blogs, setBlogs] = useState<
     { title: string; date: string; imageUrl: string; description: string, content: string }[]
   >([]);
-  const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const { isAuthenticated } = useSelector(
     (state: { auth: { isAuthenticated: boolean } }) => state.auth
@@ -28,7 +27,6 @@ export const BlogSection = () => {
           { withCredentials: true }
         );
         setBlogs(blogsData.data);
-        console.log(blogsData.data)
         setLoading(false);
       } catch (error) {
         console.log("Error fetching the blogs", error);
@@ -37,8 +35,8 @@ export const BlogSection = () => {
     fetchBlogs();
   }, []);
   return (
-    <div className="w-full h-full py-2 bg-bgApp2 rounded-2xl">
-      <h2 className="max-w-7xl pl-4 mx-auto text-2xl font-bold text-fontApp font-sans">
+    <div className="w-full h-full bg-bgApp2 rounded-2xl">
+      <h2 className="max-w-7xl pl-4 py-2 text-2xl font-bold text-fontApp font-sans">
         Blogs
       </h2>
       <div className="flex flex-col items-center">

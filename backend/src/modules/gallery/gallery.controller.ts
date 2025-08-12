@@ -7,7 +7,7 @@ import { SkipAuth } from '../auth/skip-auth.decorator';
 export class GalleryController {
   constructor(private readonly galleryService: GalleryService) {}
 
-  @Post('create')
+  @Post()
   create(@Body() createGalleryDto: CreateGalleryDto) {
     return this.galleryService.create(createGalleryDto);
   }

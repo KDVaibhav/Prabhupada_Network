@@ -75,7 +75,7 @@ export const BlogEditor = () => {
         const formData = new FormData();
         formData.append("file", coverImage);
         formData.append("fileName", `blog-cover-${Date.now()}`);
-        formData.append("folder", "/blogs");
+        formData.append("folder", "/Prabhupada_Network/blogs/coverImage");
         formData.append("signature", coverSignature);
         formData.append("expire", coverExpire);
         formData.append("token", coverToken);
@@ -112,7 +112,7 @@ export const BlogEditor = () => {
           const formData = new FormData();
           formData.append("file", blob, `blog-image-${Date.now()}.png`);
           formData.append("fileName", `blog-image-${Date.now()}`);
-          formData.append("folder", "/blogs");
+          formData.append("folder", "/Prabhupada_Network/blogs/contentImage");
           formData.append("signature", inlineSignature);
           formData.append("expire", inlineExpire);
           formData.append("token", inlineToken);
@@ -137,14 +137,11 @@ export const BlogEditor = () => {
           return url ? `<img${attributes}src="${url}"` : match;
         }
       );
-      console.log("Final imageUrl:", imageUrl);
 
       // Set the first image as default if no cover image is provided
       if (!imageUrl && Object.keys(uploadedImages).length > 0) {
         imageUrl = Object.values(uploadedImages)[0];
       }
-
-      console.log("Final imageUrl:", imageUrl);
 
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog`,
@@ -156,7 +153,6 @@ export const BlogEditor = () => {
         },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(title, " ", imageUrl);
 
       alert("✅ Blog submitted successfully!");
       setTitle("");
@@ -230,16 +226,19 @@ export const BlogEditor = () => {
           Add Cover Image
         </button>
       </div>
+      
       <TextEditor content={content} setContent={setContent} preview={preview} />
+      <div className="flex justify-center">
       <button
-        onClick={submitBlog}
-        disabled={loading}
-        className={`${
-          loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
-        } text-white px-4 py-2 rounded`}
-      >
-        {loading ? "Submitting..." : "Submit Blog"}
-      </button>
+          onClick={submitBlog}
+          disabled={loading}
+          className={`${
+            loading ? "bg-gray-400" : "bg-green-600 hover:bg-green-700"
+          } text-white px-4 py-2 rounded`}
+        >
+          {loading ? "Submitting..." : "Submit Blog"}
+        </button>
+      </div>
     </div>
   );
 };

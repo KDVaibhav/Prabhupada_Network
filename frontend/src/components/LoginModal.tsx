@@ -22,7 +22,6 @@ const LoginModal = ({
     setLoading(true);
     setError("");
     try {
-      console.log(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/login`);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/login`,
 

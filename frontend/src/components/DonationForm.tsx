@@ -3,7 +3,7 @@ import React from "react";
 
 const DonationForm = () => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center bg-bgApp2 rounded-2xl mb-2">
+    <div className="flex flex-col md:flex-row items-center justify-center bg-bgApp2 rounded-2xl mt-2">
       <div className="w-full md:w-1/3 flex items-center justify-center order-1 md:order-2">
         <img
           src="https://ik.imagekit.io/opiwak7mf/Prabhupada_Network/donation.png?updatedAt=1751788582838"
@@ -22,7 +22,7 @@ const DonationForm = () => {
         </Link>
       </div>
     </div>
-  );
+  )
 };
 
 export default DonationForm;

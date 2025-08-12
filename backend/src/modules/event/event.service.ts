@@ -21,7 +21,6 @@ export class EventService {
     try {
       const events = await this.eventModel.find();
       return events;
-      
     } catch (error) {
       throw new BadRequestException('Error fetching events', error);
     }
@@ -41,7 +40,11 @@ export class EventService {
 
   async update(id: string, updateEventDto: UpdateEventDto) {
     try {
-      const event = await this.eventModel.findByIdAndUpdate(id, updateEventDto, { new: true });
+      const event = await this.eventModel.findByIdAndUpdate(
+        id,
+        updateEventDto,
+        { new: true },
+      );
       if (!event) {
         throw new BadRequestException('Event not found');
       }
@@ -61,5 +64,12 @@ export class EventService {
     } catch (error) {
       throw new BadRequestException('Error deleting event', error);
     }
+  }
+
+  async updateSchedule(
+    id: string,
+    schedule: { fields: string[]; rows: string[][] },
+  ) {
+    return this.eventModel.findByIdAndUpdate(id, { schedule }, { new: true });
   }
 }

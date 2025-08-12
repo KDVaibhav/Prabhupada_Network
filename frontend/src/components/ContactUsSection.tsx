@@ -33,8 +33,9 @@ const ContactUsSection = () => {
     }
   };
   return (
-    <div className="flex flex-col items-center justify-center w-full bg-bgApp2 rounded-2xl overflow-hidden">
+    <div className="flex flex-col items-center justify-center w-full bg-bgApp2 rounded-2xl overflow-hidden mt-2">
       <div className="flex flex-col justify-center items-center md:flex-row w-full">
+        {/* Srila Prabhupada Image and Text */}
         <div className="p-2 flex flex-col items-center justify-center w-full md:w-1/2">
           <Image
             src={"/SP_Footer.webp"}
@@ -44,23 +45,24 @@ const ContactUsSection = () => {
             className="rounded-2xl"
           />
           <span className="text-center text-fontApp max-w-72 md:max-w-96">
-            His Divine Grace.A.C. Bhaktivedanta Swami Prabhupada
+            His Divine Grace A.C. Bhaktivedanta Swami Prabhupada
           </span>
         </div>
-        <div className="flex flex-col items-center justify-center max-w-72 md:max-w-96">
-          <h1 className="text-fontApp font-bold">Contact Us</h1>
-          <div className="text-center text-black">
-            Prabhupada Network, Room 102, 1st floor, lotus building, Iskcon
-            Temple Mayapur, Nadia 741313, West Bengal, India.
+        {/* Contact Us */}
+        <div className="text-fontApp flex flex-col items-center justify-center max-w-72 md:max-w-96">
+          <h1 className="font-bold">Contact Us</h1>
+          <div className="text-center">
+            Srila Prabhupada Connection - Mayapur, Room 102, 1st floor, lotus
+            building, Iskcon Temple Mayapur, Nadia 741313, West Bengal, India.
           </div>
-          <div className="flex flex-col gap-2 p-2 text-black">
+          <div className="flex flex-col gap-2 p-2">
             <div className="flex items-center gap-2">
               <DIcons.Phone className="text-white bg-primary2 rounded-full w-10 h-10 p-2" />
               +91 9679331108
             </div>
             <div className="flex items-center gap-2">
               <DIcons.Mail className="text-white bg-primary2 rounded-full w-10 h-10 p-2" />
-              connect@prabhupadanetwork.com
+              srilaprabhupadaconnectionm@gmail.com
             </div>
           </div>
         </div>

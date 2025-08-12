@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Prabhupada Network",
+  title: "Srila Prabhupada Connection - Mayapur",
   description: "Founder Acarya Of ISCKON",
 };
 

@@ -1,6 +1,7 @@
 "use client";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
+import { BulletList, ListItem } from "@tiptap/extension-list";
 import TextAlignExtension from "@tiptap/extension-text-align";
 import ColorExtension from "@tiptap/extension-color";
 import HighlightExtension from "@tiptap/extension-highlight";
@@ -18,10 +19,15 @@ export default function TextEditor({
 }) {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        bulletList: false,
+        listItem: false,
+      }),
       UnderlineExtension,
       ColorExtension,
       HighlightExtension,
+      BulletList,
+      ListItem,
       TextAlignExtension.configure({
         types: ["heading", "paragraph"],
       }),
@@ -30,6 +36,12 @@ export default function TextEditor({
     content: content,
     onUpdate: ({ editor }) => {
       setContent(editor.getHTML());
+    },
+    editorProps: {
+      attributes: {
+        class:
+          "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none",
+      },
     },
   });
   const addImage = async () => {
@@ -54,7 +66,41 @@ export default function TextEditor({
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4 space-y-4">
+    <div className="w-full mx-auto p-4 space-y-4">
+      <style jsx global>{`
+        .tiptap-editor .tiptap ul,
+        .tiptap ul {
+          list-style-type: disc !important;
+          padding-left: 1.5rem !important;
+          margin: 1rem 0 !important;
+        }
+        .tiptap-editor .tiptap ol,
+        .tiptap ol {
+          list-style-type: decimal !important;
+          padding-left: 1.5rem !important;
+          margin: 1rem 0 !important;
+        }
+        .tiptap-editor .tiptap ul li,
+        .tiptap ul li,
+        .tiptap-editor .tiptap ol li,
+        .tiptap ol li {
+          margin: 0.25em 0 !important;
+          display: list-item !important;
+        }
+        .tiptap-editor .tiptap ul li p,
+        .tiptap ul li p,
+        .tiptap-editor .tiptap ol li p,
+        .tiptap ol li p {
+          margin: 0 !important;
+          display: inline !important;
+        }
+        .tiptap-editor .tiptap ul li::marker,
+        .tiptap ul li::marker,
+        .tiptap-editor .tiptap ol li::marker,
+        .tiptap ol li::marker {
+          color: #000 !important;
+        }
+      `}</style>
       {preview ? (
         <div
           className="mt-4 min-h-[600px] border border-gray-300 p-6 rounded-2xl shadow-lg bg-white font-Roboto"
@@ -82,7 +128,6 @@ export default function TextEditor({
                   : "hover:bg-primary2 hover:text-white"
               }`}
             >
-
               I
             </button>
             <button
@@ -104,6 +149,18 @@ export default function TextEditor({
               }`}
             >
               S
+            </button>
+            <button
+              onClick={() => {
+                editor?.chain().focus().toggleBulletList().run();
+              }}
+              className={`px-3 py-1 rounded-md ${
+                editor?.isActive("bulletList")
+                  ? "bg-primary2 text-white"
+                  : "hover:bg-primary2 hover:text-white"
+              }`}
+            >
+              • List
             </button>
             <button
               onClick={() => editor?.chain().focus().toggleCode().run()}
@@ -187,7 +244,7 @@ export default function TextEditor({
           </div>
           {/* Editor with full page height */}
           <div className="mt-4 min-h-[600px] border border-gray-300 p-6 rounded-2xl shadow-lg bg-white font-Roboto">
-            <EditorContent editor={editor} />
+            <EditorContent editor={editor} className="tiptap-editor" />
           </div>
         </div>
       )}

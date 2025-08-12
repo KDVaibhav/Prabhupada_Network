@@ -13,26 +13,35 @@ import LoginModal from "./LoginModal";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const dispatch: AppDispatch = useDispatch();
+  var pathname = usePathname() || "/";
+  const [hoveredPath, setHoveredPath] = useState(pathname);
+  // Close navbar on route change if screen is small
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setIsOpen(false);
+    }
+  }, [pathname]);
   const { isAuthenticated, user, windowSize } = useSelector(
     (state: {
       auth: { isAuthenticated: boolean; user: any; windowSize: number };
     }) => state.auth
   );
-  const [openModal, setOpenModal] = useState(false);
-  const dispatch: AppDispatch = useDispatch();
+
   const onCloseModal = () => {
     setOpenModal(false);
   };
 
-  let pathname = usePathname() || "/";
   if (pathname.includes("/blogs/")) pathname = "/blogs";
   if (pathname.includes("/courses/")) pathname = "/courses";
   if (pathname.includes("/events/")) pathname = "/events";
-  const [hoveredPath, setHoveredPath] = useState(pathname);
 
   useEffect(() => {
     const handleResize = () => dispatch(setWindowSize(window.innerWidth));
-    dispatch(setAuth({isAuthenticated: localStorage.getItem("token") !== null}));
+    dispatch(
+      setAuth({ isAuthenticated: localStorage.getItem("token") !== null })
+    );
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -48,22 +57,24 @@ const Navbar = () => {
       <div className="relative flex flex-col bg-white backdrop-blur-md w-full shadow-md rounded-2xl">
         <div className="flex justify-between pr-2 items-center">
           <Logo />
-          {windowSize < 1000 ? (
+          {windowSize < 1024 ? (
             <MobileMenuToggle isOpen={isOpen} toggleNavBar={toggleNavBar} />
           ) : (
             <NavOptions
               hoveredPath={hoveredPath}
               setHoveredPath={setHoveredPath}
               pathname={pathname}
+              setIsOpen={setIsOpen}
             />
           )}
         </div>
-        {windowSize < 1000 && (
+        {windowSize < 1024 && (
           <MobileMenuDropdown
             isOpen={isOpen}
             hoveredPath={hoveredPath}
             setHoveredPath={setHoveredPath}
             pathname={pathname}
+            setIsOpen={setIsOpen}
           />
         )}
       </div>
@@ -96,16 +107,16 @@ const Logo = () => {
   return (
     <div className="flex gap-2 items-center">
       <Image
-        src="/PN_Logo.jpg"
-        alt="Prabhupada Network Logo"
+        src="/SPCM_Logo.jpg"
+        alt="Srila Prabhupada Connection - Mayapur Logo"
         width={70}
         height={70}
         className="rounded-full"
       />
       {windowSize >= 1000 && (
         <div className="flex flex-col font-bold font-Roboto">
-          <span>Prabhupada</span>
-          <span>Network</span>
+          <span>Srila Prabhupada</span>
+          <span>Connection-Mayapur</span>
         </div>
       )}
     </div>
@@ -117,11 +128,13 @@ const MobileMenuDropdown = ({
   hoveredPath,
   setHoveredPath,
   pathname,
+  setIsOpen,
 }: {
   isOpen: boolean;
   hoveredPath: string;
   setHoveredPath: React.Dispatch<React.SetStateAction<string>>;
   pathname: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => (
   <div
     className={`transition-all duration-500 overflow-hidden ${
@@ -132,6 +145,7 @@ const MobileMenuDropdown = ({
       hoveredPath={hoveredPath}
       setHoveredPath={setHoveredPath}
       pathname={pathname}
+      setIsOpen={setIsOpen}
     />
   </div>
 );
@@ -140,10 +154,12 @@ const NavOptions = ({
   hoveredPath,
   setHoveredPath,
   pathname,
+  setIsOpen,
 }: {
   hoveredPath: string;
   setHoveredPath: React.Dispatch<React.SetStateAction<string>>;
   pathname: string;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
     <div className="flex flex-col lg:flex-row items-center text-lg">
@@ -157,6 +173,11 @@ const NavOptions = ({
             data-active={isActive}
             onMouseOver={() => setHoveredPath(option.path)}
             onMouseLeave={() => setHoveredPath(pathname)}
+            onClick={() => {
+              if (typeof window !== "undefined" && window.innerWidth < 768) {
+                setIsOpen(false);
+              }
+            }}
           >
             <span>{option.name}</span>
             {option.path === hoveredPath && (
