@@ -47,7 +47,8 @@ jobs:
           cache: "pnpm" # Enable caching for pnpm
 
       - name: Install dependencies
-        run: pnpm install --dir backend
+        working-directory: backend
+        run: pnpm install
 
       # - name: Run Tests
       #   run: pnpm run test  # Replace with your actual test script if different
