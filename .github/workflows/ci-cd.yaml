@@ -32,22 +32,16 @@ jobs:
         with:
           version: latest # Use the latest pnpm version
 
-      - name: Add pnpm to PATH
-        run: |
-          echo "Adding pnpm to PATH"
-          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
-
-      - name: Debug PATH
-        run: echo $PATH
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20" # Use your desired Node.js version
           cache: "pnpm" # Enable caching for pnpm
+          cache-dependency-path: backend/pnpm-lock.yaml
 
       - name: Install dependencies
-        run: pnpm install --dir backend
+        working-directory: backend
+        run: pnpm install
 
       # - name: Run Tests
       #   run: pnpm run test  # Replace with your actual test script if different
@@ -78,7 +72,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
-          context: .
+          context: ./backend
           file: ./backend/Dockerfile
           push: true
           tags: |

@@ -673,7 +673,7 @@ export default function DonatePage() {
 
       {/* IMPACT + TRUST */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid lg:grid-cols-3 gap-6">
+        {/* <div className="grid lg:grid-cols-3 gap-6">
           {[
             { k: "+2M", t: "Digital reach across platforms" },
             { k: "500+", t: "Books distributed last year" },
@@ -687,7 +687,7 @@ export default function DonatePage() {
               <p className="mt-1 text-sm text-[#034242]/80">{s.t}</p>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* Trust badges */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs text-[#034242]/70">
