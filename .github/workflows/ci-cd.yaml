@@ -4,9 +4,13 @@ on:
   push:
     branches:
       - devMain
+    paths:
+      - 'backend/**'
   pull_request:
     branches:
       - devMain
+    paths:
+      - 'backend/**'
 
 jobs:
   dockerbuild:
