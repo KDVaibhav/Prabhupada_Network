@@ -19,14 +19,14 @@ jobs:
 
       - name: Add host key to known_hosts
         run: |
-          # mkdir -p ~/.ssh
-          # echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/SPCM.pem
-          # chmod 600 ~/.ssh/SPCM.pem
-          ssh-keyscan -H ec2-15-207-100-48.ap-south-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/ec2_key.pem
+          chmod 600 ~/.ssh/ec2_key.pem
+          ssh-keyscan -H 13.202.27.39 >> ~/.ssh/known_hosts
 
       - name: Connect to EC2 and Deploy
         run: |
-          ssh -o StrictHostKeyChecking=yes ec2-user@ec2-15-207-100-48.ap-south-1.compute.amazonaws.com << 'EOF'
+          ssh -i ~/.ssh/ec2_key.pem ubuntu@13.202.27.39 << 'EOF'
             echo "Pulling the latest Docker image..."
             docker pull ${{secrets.DOCKER_USERNAME}}/backend:latest
 
@@ -39,3 +39,4 @@ jobs:
 
             echo "Deployment Completed!"
           EOF
+

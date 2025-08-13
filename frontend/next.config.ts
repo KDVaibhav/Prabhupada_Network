@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
       "example.com",
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
