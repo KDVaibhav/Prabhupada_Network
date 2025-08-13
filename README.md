@@ -1,1 +1,1 @@
-# Prabhupada_Network
+# Srila_Prabhupada_Connection
