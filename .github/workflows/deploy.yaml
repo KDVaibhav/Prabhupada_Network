@@ -17,11 +17,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/ec2_key.pem
           chmod 600 ~/.ssh/ec2_key.pem
-          ssh-keyscan -H 65.0.109.10 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 13.202.27.39 >> ~/.ssh/known_hosts
 
       - name: Connect to EC2 and Deploy
         run: |
-          ssh -i ~/.ssh/ec2_key.pem ubuntu@65.0.109.10 << 'EOF'
+          ssh -i ~/.ssh/ec2_key.pem ubuntu@13.202.27.39 << 'EOF'
             echo "Pulling the latest Docker image..."
             docker pull ${{secrets.DOCKER_USERNAME}}/backend:latest
 
