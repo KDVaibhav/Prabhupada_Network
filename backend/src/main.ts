@@ -11,7 +11,7 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Authorization',
   });
 
-  await app.listen(4000);
+  await app.listen(5000, '0.0.0.0');
   if (module.hot) {
     module.hot.accept();
     module.hot.dispose(() => app.close());
