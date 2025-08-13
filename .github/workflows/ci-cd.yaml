@@ -32,19 +32,12 @@ jobs:
         with:
           version: latest # Use the latest pnpm version
 
-      - name: Add pnpm to PATH
-        run: |
-          echo "Adding pnpm to PATH"
-          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
-
-      - name: Debug PATH
-        run: echo $PATH
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20" # Use your desired Node.js version
           cache: "pnpm" # Enable caching for pnpm
+          cache-dependency-path: backend/pnpm-lock.yaml
 
       - name: Install dependencies
         working-directory: backend
