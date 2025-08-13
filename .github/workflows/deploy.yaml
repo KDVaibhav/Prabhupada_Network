@@ -21,7 +21,7 @@ jobs:
 
       - name: Connect to EC2 and Deploy
         run: |
-          ssh -i ~/.ssh/SPCM.pem ec2-user@ec2-13-60-47-215.eu-north-1.compute.amazonaws.com << 'EOF'
+          ssh -i ~/.ssh/SPCM.pem ec2-user@ec2-15-207-100-48.ap-south-1.compute.amazonaws.com << 'EOF'
             echo "Pulling the latest Docker image..."
             docker pull ${{secrets.DOCKER_USERNAME}}/backend:latest
 
