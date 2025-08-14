@@ -32,7 +32,9 @@ const EventSection = () => {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/event`
         );
-        const childEvents = response.data.filter((e:any)=>e.parentEventId!=="")
+        const childEvents = response.data.filter(
+          (e: any) => e.parentEventId !== ""
+        );
         setEvents(childEvents);
         setLoading(false);
       } catch (error) {
@@ -44,33 +46,35 @@ const EventSection = () => {
 
   return (
     <div className="w-full h-full py-2 bg-bgApp2 rounded-2xl">
-      <h2 className="max-w-7xl pl-4 mx-auto text-2xl font-bold text-fontApp font-sans">
+      <h2 className="max-w-7xl pl-4 py-2 mx-auto text-2xl font-bold text-fontApp font-sans">
         Events
       </h2>
-      {loading ? (
-        <div className="p-4 text-fontApp">Loading...</div>
-      ) : (
-        <Carousel items={cards} />
-      )}
-      <div className="flex justify-center">
+      <div className="flex flex-col items-center">
+        {loading ? (
+          <div className="p-4 text-fontApp">Loading...</div>
+        ) : (
+          <Carousel items={cards} />
+        )}
 
-      {isAuthenticated && (
-        <button
-        onClick={() => setOpenModal(true)}
-        className="mt-4 bg-primary2 text-white p-2 rounded-2xl shadow-md font-bold hover:text-fontApp2"
-        >
-          Upload Events
-        </button>
-      )}
+        {isAuthenticated && (
+          <button
+            onClick={() => setOpenModal(true)}
+            className="mt-4 bg-primary2 text-white p-2 rounded-2xl shadow-md font-bold hover:text-fontApp2"
+          >
+            Upload Events
+          </button>
+        )}
       </div>
 
       {/* Modal */}
-      {isAuthenticated&& <DataInsertModal
-        openModal={openModal}
-        onCloseModal={() => setOpenModal(false)}
-        title="Event"
-        fields={EventFields}
-      />}
+      {isAuthenticated && (
+        <DataInsertModal
+          openModal={openModal}
+          onCloseModal={() => setOpenModal(false)}
+          title="Event"
+          fields={EventFields}
+        />
+      )}
     </div>
   );
 };

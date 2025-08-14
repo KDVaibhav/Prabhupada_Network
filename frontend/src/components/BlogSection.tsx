@@ -32,11 +32,11 @@ export const BlogSection = () => {
         console.log("Error fetching the blogs", error);
       }
     };
-    fetchBlogs();
+    fetchBlogs(); 
   }, []);
   return (
-    <div className="w-full h-full bg-bgApp2 rounded-2xl">
-      <h2 className="max-w-7xl pl-4 py-2 text-2xl font-bold text-fontApp font-sans">
+    <div className="w-full h-full py-2 bg-bgApp2 rounded-2xl">
+      <h2 className="max-w-7xl pl-4 py-2 mx-auto text-2xl font-bold text-fontApp font-sans">
         Blogs
       </h2>
       <div className="flex flex-col items-center">
