@@ -12,7 +12,7 @@ export default function PromotionSection() {
         />
        
         <img
-          src="https://flowbite.com/docs/images/carousel/carousel-5.svg"
+          src="https://ik.imagekit.io/opiwak7mf/Prabhupada_Network/Adobe%20Express%20-%20file.png?updatedAt=1755150330618"
           alt="..."
         />
       </Carousel>

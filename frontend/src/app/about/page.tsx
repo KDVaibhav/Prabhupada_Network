@@ -13,8 +13,8 @@ export default function AboutUs() {
       {/* Banner Section */}
       <div className="relative rounded-2xl isolate w-full h-60 md:h-72 flex items-center justify-center overflow-hidden">
         <img
-          src="/about-us-banner.webp"
-          alt="Events"
+          src="https://ik.imagekit.io/opiwak7mf/Prabhupada_Network/About-us(PN).webp?updatedAt=1754812796023"
+          alt="AboutUs Image"
           className="absolute inset-0 h-full w-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary2/85 to-orange-400/70 mix-blend-multiply" />
