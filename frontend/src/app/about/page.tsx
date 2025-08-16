@@ -48,9 +48,7 @@ export default function AboutUs() {
             Mataji.
           </li>
           <li>
-            <strong>Additional courses</strong>: Launching the English, Bengali,
-            and Russian medium Śrīla Prabhupāda Introductory Courses in March,
-            2025.
+            <strong>Additional courses</strong>: Launched the Śrīla Prabhupāda Introductory Course in July, 2025.
           </li>
           <li>
             <strong>Śrīla Prabhupāda Connect Days</strong>: Events featuring
@@ -59,10 +57,6 @@ export default function AboutUs() {
             <ul className="list-disc list-inside ml-6">
               <li>February 20, 2025 – Gaura Purnima Festival (English)</li>
               <li>March 13, 2025 – Gaura Purnima Festival (Bengali)</li>
-              <li>July 19 & 20, 2025 – ISKCON’s Incorporation in New York</li>
-              <li>
-                September 14, 2025 – Śrīla Prabhupāda’s arrival in the USA
-              </li>
               <li>August 17, 2025 – Śrīla Prabhupāda’s Vyāsa-pūjā</li>
               <li>October 25, 2025 – Śrīla Prabhupāda’s Tirobhāva</li>
             </ul>
@@ -126,7 +120,7 @@ export default function AboutUs() {
             className="w-32 h-36 rounded-2xl"
           />
           <div className="flex flex-col items-center">
-            <div className="font-extrabold text-center">Janmashtami Dasa</div>
+            <div className="font-extrabold text-center">Janmastami Dasa</div>
             <div className="font-extralight">Team Servant</div>
             <div>Team Servant</div>
           </div>
