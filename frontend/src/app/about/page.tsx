@@ -116,7 +116,7 @@ export default function AboutUs() {
         </div>
         <div className="flex flex-col items-center p-2 md:w-1/4">
           <img
-            src="https://ik.imagekit.io/opiwak7mf/Prabhupada_Network/AboutUs/HG_Janmashtami_Pr.webp?updatedAt=1743596499774"
+            src="https://ik.imagekit.io/opiwak7mf/Prabhupada_Network/AboutUs/WhatsApp%20Image%202025-08-14%20at%2019.18.05.jpeg?updatedAt=1755328650858"
             className="w-32 h-36 rounded-2xl"
           />
           <div className="flex flex-col items-center">
